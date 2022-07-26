@@ -1,0 +1,25 @@
+html {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: cursive;
+  font-weight: 200;
+  font-size: 20px;
+}
+
+li {
+  list-style: none;
+  border: 2px solid rgb(245, 156, 55);
+  border-radius: 20px;
+  width: 20rem;
+  height: 3rem;
+  padding: 1rem;
+  text-align: center;
+  margin: 1rem;
+}
+
+a {
+  color: black;
+}
+a:hover {
+  color: coral;
+}
