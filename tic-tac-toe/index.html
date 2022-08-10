@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Amatic+SC"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>TIC TAC TOE</h1>
+    <div id="result" class="initial-result"></div>
+    <div class="board">
+      <div id="first-row" class="row">
+        <span id="00" class="first-col">-1</span>
+        <span id="01">-1</span>
+        <span id="02" class="third-col">-1</span>
+      </div>
+      <div id="second-row" class="row">
+        <span id="10" class="first-col">-1</span>
+        <span id="11">-1</span>
+        <span id="12" class="third-col">-1</span>
+      </div>
+      <div id="third-row" class="row">
+        <span id="20" class="first-col">-1</span>
+        <span id="21">-1</span>
+        <span id="22" class="third-col">-1</span>
+      </div>
+    </div>
+    <!-- <input type="button" value="Clear" /> -->
+
+    <script>
+      const board = document.querySelector(".board");
+      const inputSpans = [...document.querySelectorAll("span")];
+      const player1 = "X";
+      const player2 = "O";
+      let currPlayer = player1;
+      let isWinner = false;
+      let winningPositions = [];
+      let chances = 0;
+      const resultAlert = document.getElementById("result");
+
+      function checkForWinner(rowNo, colNo, currPlayer) {
+        let winner = false;
+        for (let i = 0; i < 3; i++) {
+          if (document.getElementById(`${rowNo}${i}`).innerText != currPlayer) {
+            winner = false;
+            break;
+          }
+          winner = true;
+        }
+        if (winner) {
+          winningPositions.push(`${rowNo}0`, `${rowNo}1`, `${rowNo}2`);
+          return true;
+        }
+
+        for (let i = 0; i < 3; i++) {
+          if (document.getElementById(`${i}${colNo}`).innerText != currPlayer) {
+            winner = false;
+            break;
+          }
+          winner = true;
+        }
+        if (winner) {
+          winningPositions.push(`0${colNo}`, `1${colNo}`, `2${colNo}`);
+          return true;
+        }
+
+        for (let i = 0; i < 3; i++) {
+          if (document.getElementById(`${i}${i}`).innerText != currPlayer) {
+            winner = false;
+            break;
+          }
+          winner = true;
+        }
+
+        if (winner) {
+          winningPositions.push(`00`, `11`, `22`);
+          return true;
+        }
+
+        for (let i = 0; i < 3; i++) {
+          if (
+            document.getElementById(`${i}${3 - i - 1}`).innerText != currPlayer
+          ) {
+            winner = false;
+            break;
+          }
+          winner = true;
+        }
+
+        if (winner) {
+          winningPositions.push(`02`, `11`, `20`);
+          return true;
+        }
+
+        return false;
+      }
+
+      function makeMoveAndFindWinner(row, col, elementId, currPlayer) {
+        let rowNo = Number(row);
+        let colNo = Number(col);
+        const inputSpan = document.getElementById(elementId);
+        inputSpan.innerText = currPlayer;
+        inputSpan.style.color = "#4287f5";
+        return checkForWinner(rowNo, colNo, currPlayer);
+      }
+
+      function handlePlayerInput(e) {
+        const elementId = e.target.id;
+        let [row, col] = elementId.split("");
+        if (e.target.innerText != -1) {
+          return;
+        }
+        chances++;
+
+        isWinner = makeMoveAndFindWinner(row, col, elementId, currPlayer);
+
+        if (isWinner) {
+          resultAlert.innerHTML = `Player ${currPlayer} WON`;
+          resultAlert.classList.add("result-msg");
+
+          winningPositions.forEach(
+            (pos) => (document.getElementById(pos).style.background = "#b9d2fa")
+          );
+
+          inputSpans.forEach((inputSpan) =>
+            inputSpan.removeEventListener("click", handlePlayerInput)
+          );
+        } else if (chances === 9 && !isWinner) {
+          resultAlert.innerHTML = `Its a tie. Try again`;
+          resultAlert.classList.add("result-msg");
+          return;
+        } else {
+          currPlayer = currPlayer === player1 ? player2 : player1;
+        }
+      }
+
+      inputSpans.forEach((inputSpan, index) => {
+        inputSpan.addEventListener("click", handlePlayerInput);
+      });
+    </script>
+  </body>
+</html>
