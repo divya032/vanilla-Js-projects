@@ -107,7 +107,7 @@
         let colNo = Number(col);
         const inputSpan = document.getElementById(elementId);
         inputSpan.innerText = currPlayer;
-        inputSpan.style.color = "#4287f5";
+        inputSpan.style.color = "#1640ff";
         return checkForWinner(rowNo, colNo, currPlayer);
       }
 
@@ -126,7 +126,7 @@
           resultAlert.classList.add("result-msg");
 
           winningPositions.forEach(
-            (pos) => (document.getElementById(pos).style.background = "#b9d2fa")
+            (pos) => (document.getElementById(pos).style.background = "white")
           );
 
           inputSpans.forEach((inputSpan) =>
