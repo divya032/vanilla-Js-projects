@@ -1,0 +1,27 @@
+html {
+  background-color: rgb(126, 125, 125);
+}
+body {
+  border: 2px solid white;
+  border-radius: 25px;
+}
+
+.main-heading {
+  margin: 10px;
+  padding: 10px;
+  color: white;
+}
+.main-list {
+  margin: 20px;
+  padding: 0px;
+  border: 2px solid white;
+}
+.list-items {
+  margin: 1px;
+  border-top: 2px solid white;
+  list-style: none;
+  text-align: center;
+}
+.list-items:first-of-type {
+  border-top: none;
+}
